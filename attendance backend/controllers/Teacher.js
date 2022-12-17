@@ -6,7 +6,10 @@ export const loginTeacher = async (req,res,next) => {
     const values = [req.body.email,req.body.password];
 
     db.query(q, [...values], (err, data) => {
-        if (err) return res.json(err);
+        if (err) {
+          console.log(err);
+          return res.json(err);
+        }
         return res.json(data);
       });
 };
