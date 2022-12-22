@@ -1,11 +1,27 @@
-import 'package:attendence_app/screens/auth_screen.dart';
+import 'package:attendence_app/providers/teacher_provider.dart';
+import 'package:attendence_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+import 'screens/home_screen.dart';
 
-class MyApp extends StatelessWidget {
+void main() => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => TeacherProvider()),
+        ],
+        child: MyApp(),
+      ),
+    );
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,23 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Attendance App'),
-      ),
-      body: const Center(
-        child: Text('chlo attendance app bante hai'),
-      ),
+      home: Provider.of<TeacherProvider>(context).teacher.teacherName.isEmpty ? LoginPage() : const HomeScreen(),
     );
   }
 }

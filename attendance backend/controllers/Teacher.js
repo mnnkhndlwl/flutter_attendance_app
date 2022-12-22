@@ -10,6 +10,6 @@ export const loginTeacher = async (req,res,next) => {
           console.log(err);
           return res.json(err);
         }
-        return res.json(data);
+        return res.json(data[0]);
       });
 };

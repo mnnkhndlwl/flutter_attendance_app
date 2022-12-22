@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/teacher",teacherRoute);
 app.use("/api/attendance",attendanceRoute);
 
-app.listen(8800, () => {
+app.listen(8800,"0.0.0.0" ,() => {
     console.log("Connected to backend.");
   });
   

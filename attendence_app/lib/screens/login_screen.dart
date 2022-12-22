@@ -1,9 +1,12 @@
+import 'package:attendence_app/services/login_services.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:http/http.dart';
+import '../models/teacher.dart';
+import 'package:provider/provider.dart';
 
+// login page
 class LoginPage extends StatefulWidget {
-  static String tag = 'login-page';
+ // static String tag = 'login-page';
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
@@ -11,23 +14,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final LoginService loginService = LoginService();
 
-  void login(String email, password) async {
-    try {
-      Response response = await post(
-          Uri.parse('http://192.168.0.102:8800/api/teacher/login/'),
-          body: {'email': email, 'password': password});
-
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        print(data[0]['email']);
-        print('Login successfully');
-      } else {
-        print('failed');
-      }
-    } catch (e) {
-      print(e.toString());
-    }
+  void loginUser() {
+    loginService.signInUser(
+      context: context,
+      email: emailController.text,
+      password: passwordController.text,
+    );
   }
 
   @override
@@ -75,11 +69,8 @@ class _LoginPageState extends State<LoginPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () {
+        onPressed: loginUser,
           // Navigator.of(context).pushNamed(HomePage.tag);
-          login(emailController.text.toString(),
-              passwordController.text.toString());
-        },
         padding: EdgeInsets.all(12),
         color: Colors.lightBlueAccent,
         child: Text('Log In', style: TextStyle(color: Colors.white)),
