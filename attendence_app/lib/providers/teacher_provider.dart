@@ -15,7 +15,7 @@ class TeacherProvider extends ChangeNotifier {
 
   void setTeacher(String teacher) {  // to set our teacher but we will be providing this function string teacher and then 
   // convert that string to json
-    _teacher = jsonDecode(teacher);
+    _teacher = Teacher.fromJson(teacher);
     notifyListeners();
   }
 

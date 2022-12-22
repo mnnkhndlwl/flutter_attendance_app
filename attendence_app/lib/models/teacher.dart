@@ -16,27 +16,27 @@ class Teacher {
     required this.department,
   });
 
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     'teacherName': teacherName,
-  //     'email': email,
-  //     'password': password,
-  //     'department': department,
-  //   };
-  // }
+  Map<String, dynamic> toMap() {
+    return {
+      'teacherName': teacherName,
+      'email': email,
+      'password': password,
+      'department': department,
+    };
+  }
 
-  // factory Teacher.fromMap(Map<String, dynamic> map) {
-  //   return Teacher(
-  //     teacherName: map['teacherName'] ?? '',
-  //     email: map['email'] ?? '',
-  //     password: map['password'] ?? '',
-  //     department: map['department'] ?? '',
-  //   );
-  // }
+  factory Teacher.fromMap(Map<String, dynamic> map) {
+    return Teacher(
+      teacherName: map['teacherName'] ?? '',
+      email: map['email'] ?? '',
+      password: map['password'] ?? '',
+      department: map['department'] ?? '',
+    );
+  }
 
-  // String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-  // factory Teacher.fromJson(String source) => Teacher.fromMap(json.decode(source));
+  factory Teacher.fromJson(String source) => Teacher.fromMap(json.decode(source));
 
 }
 
