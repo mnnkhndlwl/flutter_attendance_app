@@ -1,3 +1,4 @@
+import 'package:attendence_app/providers/subject_provider.dart';
 import 'package:attendence_app/providers/teacher_provider.dart';
 import 'package:attendence_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ void main() => runApp(
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => TeacherProvider()),
+          ChangeNotifierProvider(create: (_) => Subjects()),
         ],
         child: MyApp(),
       ),
