@@ -55,7 +55,7 @@ void signInUser({
   try {
     var teacherProvider = Provider.of<TeacherProvider>(context,listen: false);
      http.Response res = await http.post(
-        Uri.parse('http://192.168.0.100:8800/api/teacher/login/'),
+        Uri.parse('http://192.168.43.125:8800/api/teacher/login/'),
         body: jsonEncode({
           'email': email,
           'password': password,

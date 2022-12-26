@@ -1,9 +1,11 @@
 import 'package:attendence_app/models/teacher.dart';
 import 'package:attendence_app/providers/subject_provider.dart';
 import 'package:attendence_app/providers/teacher_provider.dart';
+import 'package:attendence_app/widgets/subjects_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../services/subject_services.dart';
 
@@ -31,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _isLoading = true;
       });
       final teacher = Provider.of<TeacherProvider>(context).teacher;
-        subservice
+      subservice
           .fetchAndSetSubjects(
               context: context,
               teacherName: teacher.teacherName,
@@ -39,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
           .then((_) {
         setState(() {
           _isLoading = false;
-         
         });
       });
     }
@@ -49,13 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final teacher = Provider.of<TeacherProvider>(context).teacher;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Subjects'),
+        title: Text('Hi ${teacher.teacherName} ! Here are your Subjects'),
       ),
-      body: Center(
-        child: Text('Hogya login'),
-      ),
+      body: _isLoading
+          ? SpinKitWave(
+              color: Colors.blue,
+              size: 50.0,
+            )
+          : SubjectsGrid(),
     );
   }
 }

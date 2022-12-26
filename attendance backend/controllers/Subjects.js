@@ -13,6 +13,6 @@ export const displaySubjects = async (req, res, next) => {
 
   db.query(q, [...values], (err, data) => {
     if (err) return res.json(err);
-    return res.json(data);
+    return res.status(200).send(JSON.stringify(data));
   });
 };

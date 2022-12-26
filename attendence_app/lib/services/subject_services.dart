@@ -13,44 +13,44 @@ class SubjectService {
       required String teacherName,
       required String department}) async {
     final subjectProvider = Provider.of<Subjects>(context);
-
     try {
-      print(teacherName);
-      try{
-        http.Response res = await http.post(
-        Uri.parse('http://192.168.0.100:8800/api/subjects/displaySubjects/'),
-        body: jsonEncode({
+      http.Response res = await http.post(
+        Uri.parse('http://192.168.43.125:8800/api/subjects/displaySubjects/'),
+        body: jsonEncode(
+          {
             'teacherName': teacherName,
             'department': department,
-          },),
-           headers: <String, String>{
+          },
+        ),
+        headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
       print(res.body);
-      } catch (error) {
-        print(error);
+      //  final extractedData = json.decode(res.body) as Map<String,dynamic>;
+      var extractedData = jsonDecode(res.body);
+      //  List<Map<String, dynamic>> extractedData = jsonDecode(res.body) as List<Map<String, dynamic>>;
+      if (extractedData == null) {
+        return;
       }
-    //   print(response.body);
-    //   final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    //  // final extractedData = json.decode(response.body);
-    //   if (extractedData == null) {
-    //     return;
-    //   }
-    //   print(extractedData);
-    //   final List<Subject> loadedSubjects = [];
-    //   extractedData.forEach((id, subData) {
-    //     loadedSubjects.add(Subject(
-    //       name: subData['name'],
-    //       subjecctid: subData['subjectid'],
-    //       subImg: subData['subImg'],
-    //       department: subData['department'],
-    //       semester: subData['semester'],
-    //       section: subData['section'],
-    //       teacherName: subData['teacherName'],
-    //     ));
-    //   });
-    //   subjectProvider.setSubjects(loadedSubjects);
+      print(extractedData);
+      List<Subject> loadedSubjects = [];
+      // extractedData.forEach((id, subData) {
+      //   loadedSubjects.add(Subject(
+      //     name: subData['name'],
+      //     subjecctid: subData['subjectid'],
+      //     subImg: subData['subImg'],
+      //     department: subData['department'],
+      //     semester: subData['semester'],
+      //     section: subData['section'],
+      //     teacherName: subData['teacherName'],
+      //   ));
+      // });
+      for (var subjectMap in extractedData) {
+        Subject newSubject = Subject.fromMap(subjectMap);
+        loadedSubjects.add(newSubject);
+      }
+      subjectProvider.setSubjects(loadedSubjects);
     } catch (error) {
       showSnackBar(context, error.toString());
       print(error);
