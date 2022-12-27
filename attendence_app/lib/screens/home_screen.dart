@@ -1,10 +1,6 @@
-import 'package:attendence_app/models/teacher.dart';
-import 'package:attendence_app/providers/subject_provider.dart';
 import 'package:attendence_app/providers/teacher_provider.dart';
 import 'package:attendence_app/widgets/subjects_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../services/subject_services.dart';
@@ -50,14 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final teacher = Provider.of<TeacherProvider>(context).teacher;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hi ${teacher.teacherName} ! Here are your Subjects'),
+        backgroundColor: Colors.deepPurpleAccent,
+        title: Text('your Subjects'),
       ),
       body: _isLoading
           ? SpinKitWave(
-              color: Colors.blue,
+              color: Colors.deepPurpleAccent,
               size: 50.0,
             )
           : SubjectsGrid(),

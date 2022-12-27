@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:attendence_app/models/teacher.dart';
 import 'package:attendence_app/providers/teacher_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -52,10 +53,11 @@ void signInUser({
   required String email,
   required String password,
 }) async {
+  var link = dotenv.env['localhost'];
   try {
     var teacherProvider = Provider.of<TeacherProvider>(context,listen: false);
      http.Response res = await http.post(
-        Uri.parse('http://192.168.43.125:8800/api/teacher/login/'),
+        Uri.parse('${link}/api/teacher/login/'),
         body: jsonEncode({
           'email': email,
           'password': password,

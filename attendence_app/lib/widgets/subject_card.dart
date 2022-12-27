@@ -1,3 +1,4 @@
+import 'package:attendence_app/screens/StudentListScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,31 +25,90 @@ class SubjectCard extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return InkWell(
       onTap: () {
-        print("Tapped" + name);
+        Navigator.of(context).pushNamed(SrudentListScreen.routeName,arguments: {
+          'department' : department,
+          'section' : section,
+          'semester' : semester
+        });
       },
       child: Card(
-        elevation: 8,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
         ),
-        color: Colors.black87,
+        elevation: 10,
+        margin: EdgeInsets.all(10),
         child: Column(
-          children: [
-            FadeInImage(
-              placeholder:
-                  const AssetImage('assets/images/product-placeholder.png'),
-              image: NetworkImage(subImg),
-              fit: BoxFit.cover,
-              width: mediaQuery.size.width,
-              height: mediaQuery.size.height * 0.25,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                  child: FadeInImage(
+                    placeholder: const AssetImage(
+                        'assets/images/product-placeholder.png'),
+                    image: NetworkImage(subImg),
+                    fit: BoxFit.cover,
+                    width: mediaQuery.size.width,
+                    height: mediaQuery.size.height * 0.25,
+                  ),
+                ), // it work as a helper widget
+                Positioned(
+                  bottom: 20,
+                  right: 0,
+                  child: Container(
+                    width: 300,
+                    color: Colors.black54,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 26,
+                        color: Colors.white,
+                      ),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              name,
-              style: TextStyle(fontSize: 24,color: Colors.white),
-            ),
-            Text(
-              "Branch : ${department.toUpperCase()}   SEM : ${semester}   Section : ${section} ",
-              style: TextStyle(fontSize: 16,color: Colors.white),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(department.toUpperCase()),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text('Sem : ${semester}'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text('Section : ${section}'),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

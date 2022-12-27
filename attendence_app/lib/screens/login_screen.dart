@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: loginUser,
           // Navigator.of(context).pushNamed(HomePage.tag);
         padding: EdgeInsets.all(12),
-        color: Colors.lightBlueAccent,
+        color: Colors.deepPurpleAccent,
         child: Text('Log In', style: TextStyle(color: Colors.white)),
       ),
     );

@@ -11,10 +11,7 @@ class SubjectsGrid extends StatelessWidget {
     return ListView.builder(
         itemCount: subs.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-             child: SubjectCard(
+          return SubjectCard(
               id: index+1,
               subjectid: subs[index].subjecctid ?? '',
               name: subs[index].name ?? '',
@@ -22,9 +19,7 @@ class SubjectsGrid extends StatelessWidget {
               semester: subs[index].semester ?? 0,
               department: subs[index].department ?? '',
               section: subs[index].section ?? '',
-            ),
-            ),
-          );
+            );
         },
       );
   }
