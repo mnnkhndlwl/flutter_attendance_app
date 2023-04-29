@@ -3,13 +3,16 @@ import { db } from "../config.js";
 const currentDate = new Date();
 
 export const takeAttendance = async (req, res, next) => {
+
+  var query = " select isPresent from attendancedb where  ";
+
   var q =
     "INSERT INTO attendancedb(`enrollment_no`,`semester`,`date`,`isPresent`,`subjectid`,`section`,`department`) VALUES(?,?,?,?,?,?,?)";
 
   var values = [
-    req.params.enrollment_no,
+    req.body.enrollment_no,
     req.body.sem,
-    currentDate.toLocaleDateString(),
+    currentDate,
     req.body.present,
     req.body.subjectid,
     req.body.section,
@@ -21,3 +24,5 @@ export const takeAttendance = async (req, res, next) => {
     return res.json(data);
   });
 };
+
+

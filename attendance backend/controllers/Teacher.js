@@ -36,7 +36,6 @@ export const getTeacher = async (req,res,next) => {
   const q = "select * from teacher where `teacherName`=?";
 
   db.query(q, req.teacherName, (err, data) => {
-    console.log(req.teacherName);
       if (err) {
         console.log(err);
         return res.json(err);

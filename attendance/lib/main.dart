@@ -1,6 +1,7 @@
 import 'package:attendance/features/auth/screens/auth_screen.dart';
 import 'package:attendance/features/auth/services/auth_service.dart';
 import 'package:attendance/features/subjects/screens/subject_screen.dart';
+import 'package:attendance/providers/subject_provider.dart';
 import 'package:attendance/providers/teacher_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,9 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => TeacherProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => SubjectProvider(),
     ),
   ], child: const MyApp()));
 }
