@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class StudentService {
-
   void takeAttendance(
       {required BuildContext context,
       required int enrollment_no,
@@ -42,8 +41,8 @@ class StudentService {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(e.toString()),
-          ));
+        content: Text(e.toString()),
+      ));
     }
   }
 
@@ -66,6 +65,36 @@ class StudentService {
       return studentMaps
           .map((studentMap) => Student.fromJson(studentMap))
           .toList();
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<dynamic> fetchStudentDetails({
+    required BuildContext context,
+    required int enrollment_no,
+    required int sem,
+    required String subjectid,
+    required String section,
+    required String department,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/students/getStudentDetails'),
+        body: jsonEncode(
+          {
+            "enrollment_no": enrollment_no,
+            "semester": sem,
+            "subjectid": subjectid,
+            "section": section,
+            "department": department
+          },
+        ),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      return res.body;
     } catch (e) {
       throw e;
     }

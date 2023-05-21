@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 // login page
 class AuthScreen extends StatefulWidget {
   // static String tag = 'login-page';
+  static route() => MaterialPageRoute(
+        builder: (context) => AuthScreen(),
+      );
   @override
   _AuthScreenState createState() => new _AuthScreenState();
 }

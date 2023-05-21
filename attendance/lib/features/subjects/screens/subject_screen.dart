@@ -1,4 +1,7 @@
+import 'package:attendance/common/widgets/drawer.dart';
 import 'package:attendance/common/widgets/loader.dart';
+import 'package:attendance/features/auth/screens/auth_screen.dart';
+import 'package:attendance/features/auth/services/auth_service.dart';
 import 'package:attendance/features/subjects/services/subject_service.dart';
 import 'package:attendance/features/subjects/widgets/subjectGrid.dart';
 import 'package:attendance/features/subjects/widgets/subject_card.dart';
@@ -54,6 +57,7 @@ import 'package:provider/provider.dart';
 
 class SubjectScreen extends StatelessWidget {
   final SubjectService subservice = SubjectService();
+  final AuthService authService = AuthService();
 
   Future<List<Subject>> _fetchSubjects(BuildContext context) async {
     final teacherName = Provider.of<TeacherProvider>(context, listen: false)
@@ -69,7 +73,17 @@ class SubjectScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Subjects"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              authService.logout(context: context);
+              Navigator.pushAndRemoveUntil(context, AuthScreen.route(),(route) => false);
+            },
+          ),
+        ],
       ),
+      drawer: CustomDrawer(),
       body: FutureBuilder<List<Subject>>(
         future: _fetchSubjects(context),
         builder: (context, snapshot) {

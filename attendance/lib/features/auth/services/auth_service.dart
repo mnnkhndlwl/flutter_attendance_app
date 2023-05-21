@@ -17,7 +17,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-    // SharedPreferences.setMockInitialValues({'token': ''});
+      // SharedPreferences.setMockInitialValues({'token': ''});
       http.Response res = await http.post(
         Uri.parse('$uri/teacher/login'),
         body: jsonEncode({
@@ -32,9 +32,9 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () async {
-          
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          Provider.of<TeacherProvider>(context, listen: false).setTeacher(res.body);
+          Provider.of<TeacherProvider>(context, listen: false)
+              .setTeacher(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           print(prefs.getString('x-auth-token'));
           // Navigator.pushNamedAndRemoveUntil(
@@ -45,14 +45,18 @@ class AuthService {
         },
       );
     } catch (e) {
-      _messangerKey.currentState?.showSnackBar( SnackBar(content: Text(e.toString()) ));
+      _messangerKey.currentState
+          ?.showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
+  void logout({required BuildContext context}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
   // get user data
-  void getUserData(
-    BuildContext context
-  ) async {
+  void getUserData(BuildContext context) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString('x-auth-token')!;
@@ -86,7 +90,8 @@ class AuthService {
         userProvider.setTeacher(userRes.body);
       }
     } catch (e) {
-      _messangerKey.currentState?.showSnackBar( SnackBar(content: Text(e.toString()) ));
+      _messangerKey.currentState
+          ?.showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 }

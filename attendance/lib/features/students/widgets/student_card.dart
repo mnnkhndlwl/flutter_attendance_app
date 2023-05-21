@@ -1,3 +1,4 @@
+import 'package:attendance/features/students/screens/student_detail.dart';
 import 'package:attendance/features/students/services/student_service.dart';
 import 'package:attendance/models/student.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +33,18 @@ class _StudentCardState extends State<StudentCard> {
 
   // }
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
+ @override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        Student_DetailScreen.route(
+          widget.enrollment_no
+        ),
+      );
+    },
+    child: Card(
       child: ListTile(
         title: Text(widget.name),
         trailing: Checkbox(
@@ -44,16 +54,18 @@ class _StudentCardState extends State<StudentCard> {
               isPresent = value ?? false;
             });
             studentService.takeAttendance(
-                context: context,
-                enrollment_no: widget.enrollment_no,
-                sem: widget.sem,
-                subjectid: widget.subjectid,
-                section: widget.section,
-                department: widget.department,
-                present: isPresent);
+              context: context,
+              enrollment_no: widget.enrollment_no,
+              sem: widget.sem,
+              subjectid: widget.subjectid,
+              section: widget.section,
+              department: widget.department,
+              present: isPresent,
+            );
           },
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
